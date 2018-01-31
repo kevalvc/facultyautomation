@@ -83,7 +83,9 @@ function generate()
       year.add(option);
       td3.appendChild(year);
       var td35=document.createElement('td');
+      td35.setAttribute('class',300+i-1);
       var section = document.createElement("SELECT");
+      section.setAttribute('class','section');
       var option = document.createElement("option");
       option.text = "A";
       option.value = "A";
@@ -126,10 +128,13 @@ function generate()
       var td5=document.createElement('td');
       var attn=document.createElement('INPUT');
       attn.setAttribute("type", "number");
+      attn.setAttribute('class',100+i-1);
+      attn.setAttribute("onkeyup","getAttendance(this)");
       td5.appendChild(attn);
       var td6=document.createElement('td');
       var percentage=document.createElement('INPUT');
-      percentage.setAttribute("type","number");
+      percentage.setAttribute('type',"number");
+      td6.setAttribute('id',200+i-1);
       td6.appendChild(percentage);
       td6.innerHTML="23.23";
       // td1.innerHTML='hello';
@@ -187,7 +192,7 @@ function setSubjects(s)
    else if(year.value=='TE')
       var sublist=['SPCC','SE','DD','MCC'];
    else if(year.value=='BE')
-      var sublist=['DWM','HMI','PDS','ELECTIVE-III'];
+      var sublist=['DWM','HMI','PDS','ELECT-III'];
    // console.log(year);
    // console.log(sublist);
    var subjects=document.getElementsByClassName("subjects");
@@ -201,4 +206,35 @@ function setSubjects(s)
       subjects[classname].add(subject);
    }
 
+}
+function getAttendance(attn)
+{
+   var attend=new Map();
+   attend['FEA']=60;
+   attend['FEB']=60;
+   attend['SEA']=80;
+   attend['SEB']=80;
+   attend['TEA']=85;
+   attend['TEB']=85;
+   attend['BEA']=85;
+   attend['BEB']=85;
+   // console.log(attn.value);
+   var curattn=Number(attn.value);
+   // console.log(curattn);
+   var classn=attn.classList[0];
+   // console.log(classn);
+   var classname=document.getElementsByClassName(classn-100)[0].value;
+   var select = document.getElementsByClassName("section");
+   // console.log(select);
+   var section=select[classn-100];
+   // console.log(section);
+   var secval=section.value;
+   // console.log(secval);
+   var classname=document.getElementsByClassName(classn-100)[0].value+secval;
+   // console.log(classname);
+   // console.log(Number(classn)+100);
+   var count=document.getElementById(Number(classn)+100);
+   // console.log(count);
+   // console.log(attn[classname]);
+   count.innerHTML=curattn/attend[classname]*100;
 }

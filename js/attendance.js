@@ -1,9 +1,10 @@
 var attn=[];
-attn['fea']=60;
-attn['feb']=60;
-attn['sea']=80;
-attn['seb']=80;
-attn['tea']=85;
-attn['teb']=85;
-attn['bea']=85;
-attn['beb']=85;
+attn['FEA']=60;
+attn['FEB']=60;
+attn['SEA']=80;
+attn['SEB']=80;
+attn['TEA']=85;
+attn['TEB']=85;
+attn['BEA']=85;
+attn['BEB']=85;
+// console.log(attn);
