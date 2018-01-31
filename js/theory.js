@@ -55,7 +55,8 @@ function generate()
       var td3=document.createElement('td');
       var year = document.createElement("SELECT");
       year.setAttribute('id','year');
-      year.setAttribute('onchange',"setSubjects(this,'{i}')");
+      year.setAttribute('class',i-1);
+      year.setAttribute('onchange',"setSubjects(this)");
       var option = document.createElement("option");
       option.text = "";
       option.value = "";
@@ -171,10 +172,14 @@ function submitTheory()
    window.location.href="pract.php";
 }
 
-function setSubjects(s,i)
+function setSubjects(s)
 {
-   console.log('hello');
    var year=s;
+   var classname=year.classList[0];
+   var select = document.getElementsByClassName("subjects");
+   var subject=select[classname];
+   subject.innerHTML="";
+   // console.log(subject);
    if(year.value=='FE')
       var sublist=['AM-II','AP-II','AC-II','ED','SPA','CS'];
    else if(year.value=='SE')
@@ -183,17 +188,17 @@ function setSubjects(s,i)
       var sublist=['SPCC','SE','DD','MCC'];
    else if(year.value=='BE')
       var sublist=['DWM','HMI','PDS','ELECTIVE-III'];
-   console.log(sublist);
+   // console.log(year);
+   // console.log(sublist);
    var subjects=document.getElementsByClassName("subjects");
-   console.log(subjects);
-   console.log(i);
+   // console.log(subjects);
    for(var sub in sublist)
    {
-      console.log(sub);
+      // console.log(sub);
       var subject=document.createElement('option');
       subject.value=sublist[sub];
       subject.text=sublist[sub];
-      subjects.add(subject);
+      subjects[classname].add(subject);
    }
 
 }
