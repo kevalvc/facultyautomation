@@ -1,0 +1,9 @@
+var attn=[];
+attn['fea']=60;
+attn['feb']=60;
+attn['sea']=80;
+attn['seb']=80;
+attn['tea']=85;
+attn['teb']=85;
+attn['bea']=85;
+attn['beb']=85;
