@@ -20,6 +20,10 @@
              <label class="col-4" for="inputTheoryCond">Enter number of conducted theory Lectures  </label>
              <input type="number" class="form-control col-8" id="inputTheoryCond" placeholder="">
           </div>
+          <div class="form-group row">
+             <label class="col-4" for="inputElectiveCond">Enter number of conducted elective Lectures  </label>
+             <input type="number" class="form-control col-8" id="inputElectiveCond" placeholder="">
+          </div>
            <div class="form-group mx-auto" style="width:200px">
              <input type ="button" id="submit" class="btn btn-primary btn-lg mx-auto" value="Submit" onclick="generate()">
            </div>
