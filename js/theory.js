@@ -255,30 +255,32 @@ function generate()
 
   document.getElementById("submit").disabled = true;
 
+/*================================================
+       button for generating table
+================================================*/
 
-// button for generating table
-   // var lec=document.getElementById("lec");
-   // var submit=document.createElement('INPUT');
-   // submit.setAttribute('type','submit');
-   // submit.setAttribute('value','Generate Table');
-   // submit.setAttribute('id','generateTable');
-   // submit.setAttribute('onclick','generateTable()');
-   // submit.setAttribute('class','btn btn-primary');
-   // lec.append(submit);
+   var lec=document.getElementById("lec");
+   var submit=document.createElement('INPUT');
+   submit.setAttribute('type','submit');
+   submit.setAttribute('value','Generate Table');
+   submit.setAttribute('id','generateTable');
+   submit.setAttribute('onclick','generateTable()');
+   submit.setAttribute('class','btn btn-primary');
+   lec.append(submit);
 
 
-   // for (i = 1; i <= a; i++)
-   // {
-   //     var input1 = document.createElement("tr");
-   //     var tr1=document.createElement("td");
-   //     input1.appendChild(tr1);
-   //     var input2 = document.createElement("tr");
-   //     var tr2=document.createElement("td");
-   //     input2.appendChild(tr2);
-   //     table.appendChild(input1);
-   //     table.appendChild(input2);
-   //     lec.appendChild(table);
-   // }
+   for (i = 1; i <= a; i++)
+   {
+       var input1 = document.createElement("tr");
+       var tr1=document.createElement("td");
+       input1.appendChild(tr1);
+       var input2 = document.createElement("tr");
+       var tr2=document.createElement("td");
+       input2.appendChild(tr2);
+       table.appendChild(input1);
+       table.appendChild(input2);
+       lec.appendChild(table);
+   }
 }
 
 function submitTheory()
@@ -424,134 +426,134 @@ function getAttendanceElective(attn)
          FUNCTION TO GENERATE TABLES
 ===================================================*/
 
-// function generateTable()
-// {
-//    var lec=document.getElementById("lec");
-//    var a = parseInt(document.getElementById("inputTheoryCond").value);
-//    var subjects=document.getElementsByClassName('subjects');
-//    var name=document.createElement('p');
-//    name.innerHTML="<h2><b>Faculty Table</b></h2>";
-//    name.setAttribute('class','text-center');
-//    lec.appendChild(name);
-//
-//    var table=document.createElement('table');
-//    table.setAttribute('class','table table-bordered table-inverse');
-//    var tr=document.createElement('tr');
-//    var td1=document.createElement('td');
-//    td1.innerHTML="<b>Day</b>";
-//    td1.setAttribute('rowspan','2');
-//    var td2=document.createElement('td');
-//    td2.innerHTML="<b>Date</b>";
-//    td2.setAttribute('rowspan','2');
-//    var td3=document.createElement('td');
-//    td3.innerHTML="<b>Theory (X)</b>";
-//    td3.setAttribute('colspan','3');
-//    td2.setAttribute('class','text-center');
-//    var td4=document.createElement('td');
-//    td4.innerHTML="<b>Practical/Tutorial (Y)</b>"
-//    td4.setAttribute('colspan','3');;
-//    td4.setAttribute('class','text-center');
-//    var td5=document.createElement('td');
-//    td5.innerHTML="<b>Project (Z)</b>";
-//    td5.setAttribute('colspan','3');
-//    td5.setAttribute('class','text-center');
-//    var td6=document.createElement('td');
-//    td6.innerHTML="<b>Remark</b>";
-//    td6.setAttribute('rowspan','2');
-//    tr.appendChild(td1);
-//    tr.appendChild(td2);
-//    tr.appendChild(td3);
-//    tr.appendChild(td4);
-//    tr.appendChild(td5);
-//    tr.appendChild(td6);
-//    table.appendChild(tr);
-//    lec.appendChild(table);
-//
-//    var tr=document.createElement('tr');
-//    tr.setAttribute('class','bg-primary');
-//
-//    for(var i=0;i<a;i++)
-//    {
-//       var subjectname=subjects[i];
-//       var td=document.createElement('td');
-//       td.innerHTML=subjectname.value;
-//       tr.appendChild(td);
-//    }
-//    // var td=document.createElement('td');
-//    // td.innerHTML="sub1";
-//    // tr.appendChild(td);
-//    // var td=document.createElement('td');
-//    // td.innerHTML="sub2";
-//    // tr.appendChild(td);
-//    // var td=document.createElement('td');
-//    // td.innerHTML="sub3";
-//    // tr.appendChild(td);
-//    var td=document.createElement('td');
-//    td.innerHTML="pract1";
-//    tr.appendChild(td);
-//    var td=document.createElement('td');
-//    td.innerHTML="pract2";
-//    tr.appendChild(td);
-//    var td=document.createElement('td');
-//    td.innerHTML="pract3";
-//    tr.appendChild(td);
-//    var td=document.createElement('td');
-//    td.innerHTML="mini";
-//    tr.appendChild(td);
-//    var td=document.createElement('td');
-//    td.innerHTML="minor";
-//    tr.appendChild(td);
-//    var td=document.createElement('td');
-//    td.innerHTML="major";
-//    tr.appendChild(td);
-//    table.appendChild(tr);
-//
-//    var background=['bg-success','bg-danger','bg-warning','bg-info','bg-primary','bg-success']
-//    var days=['mon','tue','wed','thur','fri','sat'];
-//    for(var i=0;i<6;i++)
-//    {
-//       var tr=document.createElement('tr');
-//       tr.setAttribute('class',background[i]);
-//
-//       var td=document.createElement('td');
-//       td.innerHTML=days[i];
-//       tr.appendChild(td);
-//       var td=document.createElement('td');
-//       td.innerHTML="8 jan";
-//       tr.appendChild(td);
-//       var td=document.createElement('td');
-//       td.innerHTML="cn";
-//       tr.appendChild(td);
-//       var td=document.createElement('td');
-//       td.innerHTML="spcc";
-//       tr.appendChild(td);
-//       var td=document.createElement('td');
-//       td.innerHTML="mcc";
-//       tr.appendChild(td);
-//       var td=document.createElement('td');
-//       td.innerHTML="npl";
-//       tr.appendChild(td);
-//       var td=document.createElement('td');
-//       td.innerHTML="wtl";
-//       tr.appendChild(td);
-//       var td=document.createElement('td');
-//       td.innerHTML="iot";
-//       tr.appendChild(td);
-//       var td=document.createElement('td');
-//       td.innerHTML="small";
-//       tr.appendChild(td);
-//       var td=document.createElement('td');
-//       td.innerHTML="medium";
-//       tr.appendChild(td);
-//       var td=document.createElement('td');
-//       td.innerHTML="large";
-//       tr.appendChild(td);
-//       var td=document.createElement('td');
-//       td.innerHTML="remark";
-//       tr.appendChild(td);
-//       table.appendChild(tr);
-//    }
-// }
+function generateTable()
+{
+   var lec=document.getElementById("lec");
+   var a = parseInt(document.getElementById("inputTheoryCond").value);
+   var subjects=document.getElementsByClassName('subjects');
+   var name=document.createElement('p');
+   name.innerHTML="<h2><b>Faculty Table</b></h2>";
+   name.setAttribute('class','text-center');
+   lec.appendChild(name);
+
+   var table=document.createElement('table');
+   table.setAttribute('class','table table-bordered table-inverse');
+   var tr=document.createElement('tr');
+   var td1=document.createElement('td');
+   td1.innerHTML="<b>Day</b>";
+   td1.setAttribute('rowspan','2');
+   var td2=document.createElement('td');
+   td2.innerHTML="<b>Date</b>";
+   td2.setAttribute('rowspan','2');
+   var td3=document.createElement('td');
+   td3.innerHTML="<b>Theory (X)</b>";
+   td3.setAttribute('colspan','3');
+   td2.setAttribute('class','text-center');
+   var td4=document.createElement('td');
+   td4.innerHTML="<b>Practical/Tutorial (Y)</b>"
+   td4.setAttribute('colspan','3');;
+   td4.setAttribute('class','text-center');
+   var td5=document.createElement('td');
+   td5.innerHTML="<b>Project (Z)</b>";
+   td5.setAttribute('colspan','3');
+   td5.setAttribute('class','text-center');
+   var td6=document.createElement('td');
+   td6.innerHTML="<b>Remark</b>";
+   td6.setAttribute('rowspan','2');
+   tr.appendChild(td1);
+   tr.appendChild(td2);
+   tr.appendChild(td3);
+   tr.appendChild(td4);
+   tr.appendChild(td5);
+   tr.appendChild(td6);
+   table.appendChild(tr);
+   lec.appendChild(table);
+
+   var tr=document.createElement('tr');
+   tr.setAttribute('class','bg-primary');
+
+   for(var i=0;i<a;i++)
+   {
+      var subjectname=subjects[i];
+      var td=document.createElement('td');
+      td.innerHTML=subjectname.value;
+      tr.appendChild(td);
+   }
+   // var td=document.createElement('td');
+   // td.innerHTML="sub1";
+   // tr.appendChild(td);
+   // var td=document.createElement('td');
+   // td.innerHTML="sub2";
+   // tr.appendChild(td);
+   // var td=document.createElement('td');
+   // td.innerHTML="sub3";
+   // tr.appendChild(td);
+   var td=document.createElement('td');
+   td.innerHTML="pract1";
+   tr.appendChild(td);
+   var td=document.createElement('td');
+   td.innerHTML="pract2";
+   tr.appendChild(td);
+   var td=document.createElement('td');
+   td.innerHTML="pract3";
+   tr.appendChild(td);
+   var td=document.createElement('td');
+   td.innerHTML="mini";
+   tr.appendChild(td);
+   var td=document.createElement('td');
+   td.innerHTML="minor";
+   tr.appendChild(td);
+   var td=document.createElement('td');
+   td.innerHTML="major";
+   tr.appendChild(td);
+   table.appendChild(tr);
+
+   var background=['bg-success','bg-danger','bg-warning','bg-info','bg-primary','bg-success']
+   var days=['mon','tue','wed','thur','fri','sat'];
+   for(var i=0;i<6;i++)
+   {
+      var tr=document.createElement('tr');
+      tr.setAttribute('class',background[i]);
+
+      var td=document.createElement('td');
+      td.innerHTML=days[i];
+      tr.appendChild(td);
+      var td=document.createElement('td');
+      td.innerHTML="8 jan";
+      tr.appendChild(td);
+      var td=document.createElement('td');
+      td.innerHTML="cn";
+      tr.appendChild(td);
+      var td=document.createElement('td');
+      td.innerHTML="spcc";
+      tr.appendChild(td);
+      var td=document.createElement('td');
+      td.innerHTML="mcc";
+      tr.appendChild(td);
+      var td=document.createElement('td');
+      td.innerHTML="npl";
+      tr.appendChild(td);
+      var td=document.createElement('td');
+      td.innerHTML="wtl";
+      tr.appendChild(td);
+      var td=document.createElement('td');
+      td.innerHTML="iot";
+      tr.appendChild(td);
+      var td=document.createElement('td');
+      td.innerHTML="small";
+      tr.appendChild(td);
+      var td=document.createElement('td');
+      td.innerHTML="medium";
+      tr.appendChild(td);
+      var td=document.createElement('td');
+      td.innerHTML="large";
+      tr.appendChild(td);
+      var td=document.createElement('td');
+      td.innerHTML="remark";
+      tr.appendChild(td);
+      table.appendChild(tr);
+   }
+}
 
 function generatePracs() {
   var prac=document.getElementById("prac");
@@ -760,8 +762,8 @@ function minigroups() {
   }
 
   var proj=document.getElementById("proj");
-  var enternumberofgroups = document.createElement("label");
-  enternumberofgroups.innerHTML = "Enter number of members in each mini project:";
+  var enternumberofgroups = document.createElement("h3");
+  enternumberofgroups.innerHTML = "Enter details of each group of mini project:";
   enternumberofgroups.setAttribute("class", "numberofgroups1");
   enternumberofgroups.setAttribute("id", "tableminilabel");
   proj.append(enternumberofgroups);
@@ -783,10 +785,11 @@ function minigroups() {
     tr.append(br);
     var inputminigroup = document.createElement("td");
     inputminigroup.setAttribute("id", "labelmini"+i);
-    inputminigroup.innerHTML = "<input class='form-control' type='number' id='inputminigroup"+i+"'>";
-    inputminigroup.setAttribute("onchange", "minimembers(labelmini"+i+", "+i+")");
-    //inputmini sets an onchange minimembers passing values of the number of minimembers and the entire table data
+    // inputminigroup.innerHTML = "<input class='form-control' type='number' id='inputminigroup"+i+"'>";
+    // inputminigroup.setAttribute("onchange", "minimembers(labelmini"+i+", "+i+")");
     tr.append(inputminigroup);
+    minimembers($("#labelmini"+i), i);
+    //inputmini sets an onchange minimembers passing values of the number of minimembers and the entire table data
   }
 }
 // incomplete
@@ -798,8 +801,8 @@ function minorgroups() {
   }
 
   var proj=document.getElementById("proj2");
-  var enternumberofgroups = document.createElement("label");
-  enternumberofgroups.innerHTML = "Enter number of members in each minor project:";
+  var enternumberofgroups = document.createElement("h3");
+  enternumberofgroups.innerHTML = "Enter details of each group of minor project:";
   enternumberofgroups.setAttribute("class", "numberofgroups2");
   enternumberofgroups.setAttribute("id", "tableminorlabel");
   proj.append(enternumberofgroups);
@@ -820,10 +823,11 @@ function minorgroups() {
     tr2.append(br);
     var inputminorgroup = document.createElement("td");
     inputminorgroup.setAttribute("id", "labelminor"+i);
-    inputminorgroup.innerHTML = "<input class='form-control' type='number' id='inputminorgroup"+i+"'>";
-    inputminorgroup.setAttribute("onchange", "minormembers(labelminor"+i+", "+i+")");
-    //inputminor sets an onchange minormembers passing values of the number of minormembers and the entire table data
+    // inputminorgroup.innerHTML = "<input class='form-control' type='number' id='inputminorgroup"+i+"'>";
+    // inputminorgroup.setAttribute("onchange", "minormembers(labelminor"+i+", "+i+")");
     tr2.append(inputminorgroup);
+    minormembers($("#labelminor"+i), i);
+    //inputminor sets an onchange minormembers passing values of the number of minormembers and the entire table data
   }
 }
 
@@ -835,8 +839,8 @@ function majorgroups() {
   }
 
   var proj=document.getElementById("proj3");
-  var enternumberofgroups = document.createElement("label");
-  enternumberofgroups.innerHTML = "Enter number of members in each major project:";
+  var enternumberofgroups = document.createElement("h3");
+  enternumberofgroups.innerHTML = "Enter details of each group of major project:";
   enternumberofgroups.setAttribute("class", "numberofgroups3");
   enternumberofgroups.setAttribute("id", "tablemajorlabel");
   proj.append(enternumberofgroups);
@@ -857,10 +861,11 @@ function majorgroups() {
     tr3.append(br);
     var inputmajorgroup = document.createElement("td");
     inputmajorgroup.setAttribute("id", "labelmajor"+i);
-    inputmajorgroup.innerHTML = "<input class='form-control' type='number' id='inputmajorgroup"+i+"'>";
-    inputmajorgroup.setAttribute("onchange", "majormembers(labelmajor"+i+", "+i+")");
-    //inputmajor sets an onchange majormembers passing values of the number of minimembers and the entire table data
+    // inputmajorgroup.innerHTML = "<input class='form-control' type='number' id='inputmajorgroup"+i+"'>";
+    // inputmajorgroup.setAttribute("onchange", "majormembers(labelmajor"+i+", "+i+")");
     tr3.append(inputmajorgroup);
+    majormembers($("#labelmajor"+i), i);
+    //inputmajor sets an onchange majormembers passing values of the number of minimembers and the entire table data
   }
 }
 
@@ -880,7 +885,7 @@ function minimembers(trpass, i) {
     trpass.append(brent);
 
     var enternumberofgroups = document.createElement("label");
-    enternumberofgroups.innerHTML = "Enter attendance of each members:";
+    enternumberofgroups.innerHTML = "Enter total attendance of the members of the mini project group "+(i+1)+":";
     enternumberofgroups.setAttribute("class", "numberofgroups1"+i);
     trpass.append(enternumberofgroups);
 
@@ -923,11 +928,16 @@ function minimembers(trpass, i) {
     tr.append(inputmini0);
     // var tr2 = document.createElement("tr");
     // tbody.append(tr);
-    for (var i = 1; i < 3; i++) {
+    for (var j = 1; j < 3; j++) {
       // inputmini.setAttribute("class", "text-center");
       var inputmini = document.createElement("td");
 //This is the data id for removal of the selected stuff;
-      inputmini.innerHTML = "<input class='form-control' type='number' id='inputmini"+i+"' onchange='minimembers()'>";
+      // inputmini.innerHTML = "<input class='form-control' type='number' id='inputmini"+i+j+"' onchange=''>";
+      if (j == 1) {
+        inputmini.innerHTML = "<input class='form-control' type='number' placeholder='Number of members present' id='inputmini"+i+j+"' onchange=''>";
+      } else if (j == 2) {
+        inputmini.innerHTML = "<input class='form-control' type='number' placeholder='Total members in group' id='inputmini"+i+j+"' onchange=''>";
+      }
       tr.append(inputmini);
     }
 }
@@ -948,7 +958,7 @@ function minormembers(trpass, i) {
   trpass.append(brent);
 
   var enternumberofgroups = document.createElement("label");
-  enternumberofgroups.innerHTML = "Enter attendance of each members:";
+  enternumberofgroups.innerHTML = "Enter total attendance of the members of the minor project group "+(i+1)+":";
   enternumberofgroups.setAttribute("class", "numberofgroups2"+i);
   trpass.append(enternumberofgroups);
 
@@ -992,10 +1002,15 @@ function minormembers(trpass, i) {
   tr.append(inputminor0);
   // var tr2 = document.createElement("tr");
   // tbody.append(tr);
-  for (var i = 1; i < 3; i++) {
+  for (var j = 1; j < 3; j++) {
     // inputmini.setAttribute("class", "text-center");
     var inputminor = document.createElement("td");
-    inputminor.innerHTML = "<input class='form-control' type='number' id='inputminor"+i+"' onchange='minormembers()'>";
+    // inputminor.innerHTML = "<input class='form-control' type='number' id='inputminor"+i+j+"' onchange=''>";
+    if (j == 1) {
+      inputminor.innerHTML = "<input class='form-control' type='number' placeholder='Number of members present' id='inputminor"+i+j+"' onchange=''>";
+    } else if (j == 2) {
+      inputminor.innerHTML = "<input class='form-control' type='number' placeholder='Total members in group' id='inputminor"+i+j+"' onchange=''>";
+    }
     tr.append(inputminor);
   }
 }
@@ -1016,7 +1031,7 @@ function majormembers(trpass, i) {
   trpass.append(brent);
 
   var enternumberofgroups = document.createElement("label");
-  enternumberofgroups.innerHTML = "Enter attendance of each members:";
+  enternumberofgroups.innerHTML = "Enter total attendance of the members of the major project group "+(i+1)+":";
   enternumberofgroups.setAttribute("class", "numberofgroups3"+i);
   trpass.append(enternumberofgroups);
 
@@ -1059,11 +1074,16 @@ function majormembers(trpass, i) {
   tr.append(inputmajor0);
   // var tr2 = document.createElement("tr");
   // tbody.append(tr);
-  for (var i = 1; i < 3; i++) {
+  for (var j = 1; j < 3; j++) {
     // inputmini.setAttribute("class", "text-center");
     var inputmajor = document.createElement("td");
     inputmajor.setAttribute("id", "majordata"+i);
-    inputmajor.innerHTML = "<input class='form-control' type='number' id='inputmajor"+i+"' onchange='majormembers()'>";
+    // inputmajor.innerHTML = "<input class='form-control' type='number' id='inputmajor"+i+j+"' onchange=''>";
+    if (j == 1) {
+      inputmajor.innerHTML = "<input class='form-control' type='number' placeholder='Number of members present' id='inputmajor"+i+j+"' onchange=''>";
+    } else if (j == 2) {
+      inputmajor.innerHTML = "<input class='form-control' type='number' placeholder='Total members in group' id='inputmajor"+i+j+"' onchange=''>";
+    }
     tr.append(inputmajor);
   }
 }
