@@ -203,7 +203,7 @@ function generate()
          var tr=document.createElement('tr');
          var td1=document.createElement('td');
          var subjects = document.createElement("SELECT");
-         subjects.setAttribute('id','subjects');
+         subjects.setAttribute('id','electsubjects');
          subjects.setAttribute('class',1000+i-1);
          subjects.setAttribute('onchange',"setClass(this)");
          var option = document.createElement("option");
@@ -259,28 +259,44 @@ function generate()
        button for generating table
 ================================================*/
 
+
+   // var lec=document.getElementById("lec");
+   // var submit=document.createElement('INPUT');
+   // submit.setAttribute('type','submit');
+   // submit.setAttribute('value','Generate Table');
+   // submit.setAttribute('id','generateTable');
+   // submit.setAttribute('onclick','generateTable()');
+   // submit.setAttribute('class','btn btn-primary');
+   // lec.append(submit);
+
+
+   // for (i = 1; i <= a; i++)
+   // {
+   //     var input1 = document.createElement("tr");
+   //     var tr1=document.createElement("td");
+   //     input1.appendChild(tr1);
+   //     var input2 = document.createElement("tr");
+   //     var tr2=document.createElement("td");
+   //     input2.appendChild(tr2);
+   //     table.appendChild(input1);
+   //     table.appendChild(input2);
+   //     lec.appendChild(table);
+   // }
+
    var lec=document.getElementById("lec");
+   var cont=document.createElement('div');
+   cont.setAttribute('class','container');
+   cont.setAttribute('id','submitabc');
    var submit=document.createElement('INPUT');
    submit.setAttribute('type','submit');
-   submit.setAttribute('value','Generate Table');
-   submit.setAttribute('id','generateTable');
-   submit.setAttribute('onclick','generateTable()');
-   submit.setAttribute('class','btn btn-primary');
-   lec.append(submit);
+   submit.style.align="center";
+   submit.setAttribute('value','Click to enter Practicals');
+   submit.setAttribute('id','submitTheoryButton');
+   submit.setAttribute('onclick','myPractDisplay()');
+   submit.setAttribute('class','btn btn-primary btn-lg');
 
-
-   for (i = 1; i <= a; i++)
-   {
-       var input1 = document.createElement("tr");
-       var tr1=document.createElement("td");
-       input1.appendChild(tr1);
-       var input2 = document.createElement("tr");
-       var tr2=document.createElement("td");
-       input2.appendChild(tr2);
-       table.appendChild(input1);
-       table.appendChild(input2);
-       lec.appendChild(table);
-   }
+   cont.appendChild(submit);
+   lec.appendChild(cont);
 }
 
 function submitTheory()
@@ -288,7 +304,7 @@ function submitTheory()
    window.location.href="pract.php";
 }
 
-function setClass(s)
+function setClass(s)   // set class for electives
 {
    var subjects=s;
    var subjectname=subjects.classList[0];
@@ -314,10 +330,11 @@ function setClass(s)
 
 }
 
-function setSubjects(s)
+function setSubjects(s)    //set subjects in theory
 {
    var year=s;
    var classname=year.classList[0];
+   console.log(classname);
    var select = document.getElementsByClassName("subjects");
    var subject=select[classname];
    subject.innerHTML="";
@@ -341,6 +358,37 @@ function setSubjects(s)
       subject.value=sublist[sub];
       subject.text=sublist[sub];
       subjects[classname].add(subject);
+   }
+
+}
+
+function setPracts(s)
+{
+   var year=s;
+   var classname=year.classList[0];
+   var select = document.getElementsByClassName("practs");
+   var subject=select[classname-5000];
+   subject.innerHTML="";
+   // console.log(subject);
+   if(year.value=='FE')
+      var practlist=['AM','AP','AC','ED','SPA','CS'];
+   else if(year.value=='SE')
+      var practlist=['AM','AOA','COA','DBMS','TCS','CG'];
+   else if(year.value=='TE')
+      var practlist=['SPC','SE','DD','MCC'];
+   else if(year.value=='BE')
+      var practlist=['DWM','HMI','PDS','ELECT'];
+   // console.log(year);
+   // console.log(sublist);
+   var subjects=document.getElementsByClassName("practs");
+   // console.log(subjects);
+   for(var sub in practlist)
+   {
+      // console.log(sub);
+      var subject=document.createElement('option');
+      subject.value=practlist[sub];
+      subject.text=practlist[sub];
+      subjects[classname-5000].add(subject);
    }
 
 }
@@ -428,13 +476,17 @@ function getAttendanceElective(attn)
 
 function generateTable()
 {
-   var lec=document.getElementById("lec");
+   var tgen=document.getElementById("tablegenerated");
    var a = parseInt(document.getElementById("inputTheoryCond").value);
+   var b = parseInt(document.getElementById("inputElectiveCond").value);
+   var c = parseInt(document.getElementById("inputPracsCond").value);
    var subjects=document.getElementsByClassName('subjects');
+   console.log(electsubjects);
+   var practs=document.getElementsByClassName('practs');
    var name=document.createElement('p');
    name.innerHTML="<h2><b>Faculty Table</b></h2>";
    name.setAttribute('class','text-center');
-   lec.appendChild(name);
+   tgen.appendChild(name);
 
    var table=document.createElement('table');
    table.setAttribute('class','table table-bordered table-inverse');
@@ -447,11 +499,11 @@ function generateTable()
    td2.setAttribute('rowspan','2');
    var td3=document.createElement('td');
    td3.innerHTML="<b>Theory (X)</b>";
-   td3.setAttribute('colspan','3');
+   td3.setAttribute('colspan',a+b);
    td2.setAttribute('class','text-center');
    var td4=document.createElement('td');
    td4.innerHTML="<b>Practical/Tutorial (Y)</b>"
-   td4.setAttribute('colspan','3');;
+   td4.setAttribute('colspan',c);;
    td4.setAttribute('class','text-center');
    var td5=document.createElement('td');
    td5.innerHTML="<b>Project (Z)</b>";
@@ -467,7 +519,7 @@ function generateTable()
    tr.appendChild(td5);
    tr.appendChild(td6);
    table.appendChild(tr);
-   lec.appendChild(table);
+   tgen.appendChild(table);
 
    var tr=document.createElement('tr');
    tr.setAttribute('class','bg-primary');
@@ -475,6 +527,25 @@ function generateTable()
    for(var i=0;i<a;i++)
    {
       var subjectname=subjects[i];
+      var td=document.createElement('td');
+      td.innerHTML=subjectname.value;
+      tr.appendChild(td);
+   }
+   for(var i=0;i<b;i++)
+   {
+      var electsubjects=document.getElementsByClassName(1000+i);
+      console.log('dsfkldsj');
+      var electivename=electsubjects[0];
+      console.log(electivename);
+      var td=document.createElement('td');
+      td.innerHTML=electivename.value;
+      console.log(electivename.value);
+      tr.appendChild(td);
+   }
+
+   for(var i=0;i<c;i++)
+   {
+      var subjectname=practs[i];
       var td=document.createElement('td');
       td.innerHTML=subjectname.value;
       tr.appendChild(td);
@@ -488,15 +559,6 @@ function generateTable()
    // var td=document.createElement('td');
    // td.innerHTML="sub3";
    // tr.appendChild(td);
-   var td=document.createElement('td');
-   td.innerHTML="pract1";
-   tr.appendChild(td);
-   var td=document.createElement('td');
-   td.innerHTML="pract2";
-   tr.appendChild(td);
-   var td=document.createElement('td');
-   td.innerHTML="pract3";
-   tr.appendChild(td);
    var td=document.createElement('td');
    td.innerHTML="mini";
    tr.appendChild(td);
@@ -552,7 +614,10 @@ function generateTable()
       td.innerHTML="remark";
       tr.appendChild(td);
       table.appendChild(tr);
+
+      //your code
    }
+
 }
 
 function generatePracs() {
@@ -597,8 +662,8 @@ function generatePracs() {
      var td3=document.createElement('td');
      var year = document.createElement("SELECT");
      year.setAttribute('id','year');
-     year.setAttribute('class',i-1);
-     year.setAttribute('onchange',"setSubjects(this)");
+     year.setAttribute('class',5000+i-1);
+     year.setAttribute('onchange',"setPracts(this)");
      var option = document.createElement("option");
      option.text = "";
      option.value = "";
@@ -647,7 +712,7 @@ function generatePracs() {
      td35.appendChild(section);
      var td38=document.createElement('td');
      var subjects=document.createElement('SELECT');
-     subjects.setAttribute('class','subjects');
+     subjects.setAttribute('class','practs');
      // var subject=document.createElement('option');
      td38.appendChild(subjects);
      var td4=document.createElement('td');
@@ -695,15 +760,21 @@ function generatePracs() {
   }
   document.getElementById("submit-2").disabled = true;
 
+
+  var cont=document.createElement('div');
+  cont.setAttribute('class','container');
+  cont.setAttribute('id','submitabc');
   var submit=document.createElement('INPUT');
   submit.setAttribute('type','submit');
   submit.setAttribute('id','subPracs');
-  submit.addEventListener('click', function(){
-      // attendanceTotal(prac, "practical");
-      submitPracs();
-  });
-  submit.setAttribute('class','btn btn-primary');
-  prac.append(submit);
+  submit.setAttribute('onclick','submitPracs()');
+  // submit.addEventListener('click', function(){
+  //     // attendanceTotal(prac, "practical");
+  //     submitPracs();
+  // });
+  submit.setAttribute('class','btn btn-primary btn-lg');
+  cont.appendChild(submit);
+  prac.appendChild(cont);
 }
 
 function generateProject() {
@@ -867,6 +938,10 @@ function majorgroups() {
     majormembers($("#labelmajor"+i), i);
     //inputmajor sets an onchange majormembers passing values of the number of minimembers and the entire table data
   }
+  if($('#generateTableFinal').css('display') == 'none') {
+    $('#generateTableFinal').css('display', 'block');
+  }
+
 }
 
 function minimembers(trpass, i) {
@@ -1100,40 +1175,51 @@ function submitPracs()
    // window.location.href="pract.php";
    //   $("").onclick();
 }
-
-function attendanceTotal(fries, prorth) {
-  var attnto = 0;
-  var a;
-  var attnli;
-  console.log(fries);
-  if (prorth == "theory") {
-    a = parseInt(document.getElementById("inputTheoryCond").value);
-    attnli = document.querySelectorAll('#inputTheory');
-  } else if (prorth == "practical") {
-    a = parseInt(document.getElementById("inputPracsCond").value);
-    attnli = document.querySelectorAll('#inputPractical');
-  }
-  for (var i = 0; i < a; i++) {
-    attnto = attnto + parseInt(attnli[i].value);
-  }
-  console.log(attnto);
-  var newElem = document.createElement('div');
-  newElem.innerHTML = "<br>";
-  var newrow=document.createElement('div');
-  newrow.setAttribute("class", "row");
-  fries.appendChild(newElem);
-  fries.appendChild(newrow);
-  var totatval=document.createElement('input');
-  totatval.setAttribute('type', 'text');
-  totatval.setAttribute('class', 'btn btn-primary');
-  totatval.setAttribute('value', attnto);
-  totatval.readOnly = true;
-  // totatval.innerHTML="<h1>"+attnto+"</h1>"
-  fries.appendChild(totatval);
+function submitPracts()
+{
+  myPractDisplay();
+   // window.location.href="pract.php";
+   //   $("").onclick();
 }
+
+// function attendanceTotal(fries, prorth) {
+//   var attnto = 0;
+//   var a;
+//   var attnli;
+//   console.log(fries);
+//   if (prorth == "theory") {
+//     a = parseInt(document.getElementById("inputTheoryCond").value);
+//     attnli = document.querySelectorAll('#inputTheory');
+//   } else if (prorth == "practical") {
+//     a = parseInt(document.getElementById("inputPracsCond").value);
+//     attnli = document.querySelectorAll('#inputPractical');
+//   }
+//   for (var i = 0; i < a; i++) {
+//     attnto = attnto + parseInt(attnli[i].value);
+//   }
+//   console.log(attnto);
+//   var newElem = document.createElement('div');
+//   newElem.innerHTML = "<br>";
+//   var newrow=document.createElement('div');
+//   newrow.setAttribute("class", "row");
+//   fries.appendChild(newElem);
+//   fries.appendChild(newrow);
+//   var totatval=document.createElement('input');
+//   totatval.setAttribute('type', 'text');
+//   totatval.setAttribute('class', 'btn btn-primary');
+//   totatval.setAttribute('value', attnto);
+//   totatval.readOnly = true;
+//   // totatval.innerHTML="<h1>"+attnto+"</h1>"
+//   fries.appendChild(totatval);
+// }
 
 function myProjDisplay() {
   if($('#myProjectDisplay').css('display') == 'none') {
     $('#myProjectDisplay').css('display', 'block');
+  }
+}
+function myPractDisplay() {
+  if($('#myPractDisplay').css('display') == 'none') {
+    $('#myPractDisplay').css('display', 'block');
   }
 }
