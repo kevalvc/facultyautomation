@@ -11,8 +11,19 @@
          margin-bottom: 0;
          padding-left: 0.775rem;
       }
+      #submitabc
+      {
+         text-align:center;
+      }
       #myProjectDisplay {
         display: none;
+      }
+      #myPractDisplay {
+        display: none;
+      }
+      #generateTableFinal
+      {
+         display: none;
       }
 
     </style>
@@ -43,7 +54,7 @@
         </div>
 
       <section>
-        <div class="container">
+        <div class="container" id="myPractDisplay">
          <br>
          <br>
          <form class="form">
@@ -100,6 +111,12 @@
         </form>
       </div>
     </section>
+    <section>
+      <input type ="button" id="generateTableFinal" class="btn btn-primary btn-lg mx-auto" value="Generate Table" onclick="generateTable()">
+      <div class="container" id="tablegenerated">
+
+      </div>
+   </section>
   </div>
 
 
