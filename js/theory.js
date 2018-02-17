@@ -1,6 +1,5 @@
 var ptr = 0;
-function generate()
-{
+function generate() {
    var lec=document.getElementById("lec");
    var a = parseInt(document.getElementById("inputTheoryCond").value);
    if(a>0)
@@ -299,8 +298,7 @@ function generate()
    lec.appendChild(cont);
 }
 
-function submitTheory()
-{
+function submitTheory() {
    window.location.href="pract.php";
 }
 
@@ -362,8 +360,7 @@ function setSubjects(s)    //set subjects in theory
 
 }
 
-function setPracts(s)
-{
+function setPracts(s) {
    var year=s;
    var classname=year.classList[0];
    var select = document.getElementsByClassName("practs");
@@ -392,8 +389,8 @@ function setPracts(s)
    }
 
 }
-function getAttendance(attn)
-{
+
+function getAttendance(attn) {
    var attend=new Map();
    attend['FEA']=60;
    attend['FEB']=60;
@@ -424,8 +421,7 @@ function getAttendance(attn)
    count.innerHTML=curattn/attend[classname]*100;
 }
 
-function getAttendanceElective(attn)
-{
+function getAttendanceElective(attn) {
    var attend=new Map();
    attend['ortea']=10;
    attend['orteb']=8;
@@ -481,12 +477,26 @@ function generateTable()
    var b = parseInt(document.getElementById("inputElectiveCond").value);
    var c = parseInt(document.getElementById("inputPracsCond").value);
    var subjects=document.getElementsByClassName('subjects');
-   console.log(electsubjects);
    var practs=document.getElementsByClassName('practs');
    var name=document.createElement('p');
+   // console.log("practs: : "+practs);
+   // console.log("name: "+name);
+   // console.log("a: "+a);
+   // console.log("b: "+b);
+   // console.log("c: "+c);
+   // console.log("subjects: "+subjects);
+
+   // console.log(electsubjects);
    name.innerHTML="<h2><b>Faculty Table</b></h2>";
    name.setAttribute('class','text-center');
    tgen.appendChild(name);
+
+   // ==========================================================================================================REMOVE
+   // a = 2;
+   // b = 1;
+   // c = 3;
+   // var subjects = ["AM-IV", "SPCC"];
+   // var practs = ["AM", "AM", "AM"];
 
    var table=document.createElement('table');
    table.setAttribute('class','table table-bordered table-inverse');
@@ -499,8 +509,8 @@ function generateTable()
    td2.setAttribute('rowspan','2');
    var td3=document.createElement('td');
    td3.innerHTML="<b>Theory (X)</b>";
+   td3.setAttribute('class','text-center');
    td3.setAttribute('colspan',a+b);
-   td2.setAttribute('class','text-center');
    var td4=document.createElement('td');
    td4.innerHTML="<b>Practical/Tutorial (Y)</b>"
    td4.setAttribute('colspan',c);;
@@ -536,10 +546,14 @@ function generateTable()
       var electsubjects=document.getElementsByClassName(1000+i);
       console.log('dsfkldsj');
       var electivename=electsubjects[0];
-      console.log(electivename);
+
+      // ==========================================================================================================REMOVE
+      // electivename = "OR";
+
+      console.log("electivename: "+electivename);
       var td=document.createElement('td');
       td.innerHTML=electivename.value;
-      console.log(electivename.value);
+      console.log("electivename.value"+electivename.value);
       tr.appendChild(td);
    }
 
@@ -615,9 +629,166 @@ function generateTable()
       tr.appendChild(td);
       table.appendChild(tr);
 
-      //your code
    }
+// =================================================
+//                Table bottom section
+// =================================================
+   var tr = document.createElement("tr");
+   tr.setAttribute('class',background[i]);
+   table.append(tr);
+   var td = document.createElement("td");
+   td.setAttribute('colspan', '2');
+   td.setAttribute('rowspan', '2');
+   td.setAttribute('class', 'text-center');
+   td.innerHTML = "Total";
+   tr.append(td);
+   for (var i = 0; i < 10; i++) {
+     var td = document.createElement("td");
+     tr.append(td);
+   }
+   var tr = document.createElement("tr");
+   tr.setAttribute('class',background[i]);
+   table.append(tr);
 
+// Code for theory X and next block
+   var td = document.createElement("td");
+   td.setAttribute('class', 'text-center');
+   td.innerHTML = "Theory (X)";
+   if ((a+b)>1) {
+     td.setAttribute('colspan', a+b-1);
+   } else td.setAttribute('colspan', 1);
+   tr.append(td);
+   td2 = document.createElement("td");
+   td2.setAttribute('id', 'total'+1);
+   tr.append(td2);
+
+   // Code for Pract Y and next block
+   var td = document.createElement("td");
+   td.setAttribute('class', 'text-center');
+   td.innerHTML = "Pract/Tut (Y)";
+   if (c>1) {
+     td.setAttribute('colspan', c-1);
+   } else td.setAttribute('colspan', 1);
+   tr.append(td);
+   td2 = document.createElement("td");
+   td2.setAttribute('id', 'total'+2);
+   tr.append(td2);
+
+   // Code for Pract z and next two block
+   var td = document.createElement("td");
+   td.setAttribute('class', 'text-center');
+   td.innerHTML = "Project (Z)";
+   td.setAttribute('colspan', 2);
+   tr.append(td);
+   td2 = document.createElement("td");
+   td2.setAttribute('id', 'total'+3);
+   tr.append(td2);
+
+   var td = document.createElement("td");
+   tr.append(td);
+
+// Attendance Row
+   var tr = document.createElement("tr");
+   // tr.setAttribute('class',background[i]);
+   table.append(tr);
+   var td = document.createElement("td");
+   td.setAttribute('colspan', '2');
+   td.setAttribute('rowspan', '2');
+   td.setAttribute('class', 'text-center');
+   td.innerHTML = "Attendance %";
+   tr.append(td);
+   for (var i = 0; i < 10; i++) {
+     var td = document.createElement("td");
+     tr.append(td);
+   }
+   var tr = document.createElement("tr");
+   table.append(tr);
+   // Code for Avg A1 and next block
+      var td = document.createElement("td");
+      td.setAttribute('class', 'text-center');
+      td.innerHTML = "Avg (A1)";
+      if ((a+b)>1) {
+        td.setAttribute('colspan', a+b-1);
+      } else td.setAttribute('colspan', 1);
+      tr.append(td);
+      td2 = document.createElement("td");
+      td2.setAttribute('id', 'perat'+1);
+      tr.append(td2);
+
+      // Code for Avg A2 and next block
+      var td = document.createElement("td");
+      td.setAttribute('class', 'text-center');
+      td.innerHTML = "Avg (A2)";
+      if (c>1) {
+        td.setAttribute('colspan', c-1);
+      } else td.setAttribute('colspan', 1);
+      tr.append(td);
+      td2 = document.createElement("td");
+      td2.setAttribute('id', 'perat'+2);
+      tr.append(td2);
+
+      // Code for Avg A3 and next two block
+      var td = document.createElement("td");
+      td.innerHTML = "Avg (A3)";
+      td.setAttribute('class', 'text-center');
+      td.setAttribute('colspan', 2);
+      tr.append(td);
+      td2 = document.createElement("td");
+      td2.setAttribute('id', 'perat'+3);
+      tr.append(td2);
+
+   var td = document.createElement("td");
+   tr.append(td);
+   var tr = document.createElement("tr");
+   table.append(tr);
+   var td = document.createElement("td");
+   td.setAttribute('colspan', a+b+c+4);
+   td2 = document.createElement("td");
+   td2.setAttribute('colspan', '2');
+   td.setAttribute('class', 'text-center');
+   td.innerHTML = "Attendance Quotient A = A1 * 0.55 + A2 * 0.3 + A3 * 0.15";
+   tr.append(td);
+   tr.append(td2);
+
+   var tr = document.createElement("tr");
+   table.append(tr);
+
+   var td = document.createElement("td");
+   td.innerHTML = "Conduct Score P:"
+   td.setAttribute('class', 'text-center');
+   td.setAttribute('colspan', a+b);
+   tr.append(td);
+   var td = document.createElement("td");
+   td.setAttribute('id', 'Pscore');
+   tr.append(td);
+
+   var td = document.createElement("td");
+   td.innerHTML = "Conduct Score Q = P*A"
+   td.setAttribute('class', 'text-center');
+   td.setAttribute('colspan', c);
+   tr.append(td);
+   var td = document.createElement("td");
+   td.setAttribute('id', 'Qscore');
+   tr.append(td);
+
+   var td = document.createElement("td");
+   td.innerHTML = "Conduct Score R:"
+   td.setAttribute('class', 'text-center');
+   td.setAttribute('colspan', "3");
+   tr.append(td);
+   var td = document.createElement("td");
+   td.setAttribute('id', 'Rscore');
+   tr.append(td);
+
+   // for (var i = 0; i < 3; i++) {
+   //   var td = document.createElement("td");
+   //   if (i == 0) { td.innerHTML = "Conduct Score P:" } else if (i == 1) { td.innerHTML = "Conduct Score Q = P*A" } else td.innerHTML = "Conduct Score R:";
+   //   td.setAttribute('class', 'text-center');
+   //   td.setAttribute('colspan', '3');
+   //   td2 = document.createElement("td");
+   //   tr.append(td);
+   //   tr.append(td2);
+   // }
 }
 
 function generatePracs() {
@@ -1018,7 +1189,7 @@ function minimembers(trpass, i) {
 }
 
 function minormembers(trpass, i) {
-// trpass is used so that a new minimembers can be appended below the input.
+  // trpass is used so that a new minimembers can be appended below the input.
     var proj=document.getElementById("proj");
 
     if ($("#minordata"+i).length > 0) {
@@ -1163,20 +1334,18 @@ function majormembers(trpass, i) {
   }
 }
 
-function submitTheory()
-{
+function submitTheory() {
    // window.location.href="pract.php";
    //   $("").onclick();
 }
 
-function submitPracs()
-{
+function submitPracs() {
   myProjDisplay();
    // window.location.href="pract.php";
    //   $("").onclick();
 }
-function submitPracts()
-{
+
+function submitPracts() {
   myPractDisplay();
    // window.location.href="pract.php";
    //   $("").onclick();
