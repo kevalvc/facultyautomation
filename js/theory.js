@@ -1,5 +1,6 @@
 var ptr = 0;
-function generate() {
+function generate()
+{
    var lec=document.getElementById("lec");
    var a = parseInt(document.getElementById("inputTheoryCond").value);
    if(a>0)
@@ -259,28 +260,15 @@ function generate() {
 ================================================*/
 
 
-   // var lec=document.getElementById("lec");
-   // var submit=document.createElement('INPUT');
-   // submit.setAttribute('type','submit');
-   // submit.setAttribute('value','Generate Table');
-   // submit.setAttribute('id','generateTable');
-   // submit.setAttribute('onclick','generateTable()');
-   // submit.setAttribute('class','btn btn-primary');
-   // lec.append(submit);
+   var lec=document.getElementById("lec");
+   var submit=document.createElement('INPUT');
+   submit.setAttribute('type','submit');
+   submit.setAttribute('value','Generate Table');
+   submit.setAttribute('id','generateTable');
+   submit.setAttribute('onclick','generateTable()');
+   submit.setAttribute('class','btn btn-primary');
+   lec.append(submit);
 
-
-   // for (i = 1; i <= a; i++)
-   // {
-   //     var input1 = document.createElement("tr");
-   //     var tr1=document.createElement("td");
-   //     input1.appendChild(tr1);
-   //     var input2 = document.createElement("tr");
-   //     var tr2=document.createElement("td");
-   //     input2.appendChild(tr2);
-   //     table.appendChild(input1);
-   //     table.appendChild(input2);
-   //     lec.appendChild(table);
-   // }
 
    var lec=document.getElementById("lec");
    var cont=document.createElement('div');
@@ -296,6 +284,21 @@ function generate() {
 
    cont.appendChild(submit);
    lec.appendChild(cont);
+
+/*================================================
+       button for generating table
+================================================*/
+
+
+   var lec=document.getElementById("lec");
+   var submit=document.createElement('INPUT');
+   submit.setAttribute('type','submit');
+   submit.setAttribute('value','Generate Table');
+   submit.setAttribute('id','generateTable');
+   submit.setAttribute('onclick','generateTable()');
+   submit.setAttribute('class','btn btn-primary');
+   lec.append(submit);
+
 }
 
 function submitTheory() {
@@ -479,6 +482,44 @@ function generateTable()
    var subjects=document.getElementsByClassName('subjects');
    var practs=document.getElementsByClassName('practs');
    var name=document.createElement('p');
+
+   var subMap=new Map();
+   for(var i=0;i<a;i++)
+   {
+      var subjectname=subjects[i];
+      if(!subMap.get(subjectname.value))
+         subMap.set(subjectname.value,1);
+      else
+         subMap.set(subjectname.value,subMap.get(subjectname.value)+1);
+   }
+
+   var electMap=new Map();
+   for(var i=0;i<b;i++)
+   {
+      var electsubjects=document.getElementsByClassName(1000+i);
+      var electivename=electsubjects[0];
+      console.log(electivename.value);
+      if(!electMap.get(electivename.value))
+      {
+         electMap.set(electivename.value,1);
+      }
+      else
+      {
+         electMap.set(electivename.value,electMap.get(electivename.value)+1);
+      }
+   }
+   console.log(electMap);
+
+   var practMap=new Map();
+   for(var i=0;i<c;i++)
+   {
+      var subjectname=practs[i];
+      if(!practMap[subjectname.value])
+         practMap.set(subjectname.value,1);
+      else
+         practMap.set(subjectname.value,subMap.get(subjectname.value)+1);
+   }
+
    // console.log("practs: : "+practs);
    // console.log("name: "+name);
    // console.log("a: "+a);
@@ -510,10 +551,10 @@ function generateTable()
    var td3=document.createElement('td');
    td3.innerHTML="<b>Theory (X)</b>";
    td3.setAttribute('class','text-center');
-   td3.setAttribute('colspan',a+b);
+   td3.setAttribute('colspan',subMap.size+electMap.size);
    var td4=document.createElement('td');
    td4.innerHTML="<b>Practical/Tutorial (Y)</b>"
-   td4.setAttribute('colspan',c);;
+   td4.setAttribute('colspan',practMap.size);
    td4.setAttribute('class','text-center');
    var td5=document.createElement('td');
    td5.innerHTML="<b>Project (Z)</b>";
@@ -534,36 +575,59 @@ function generateTable()
    var tr=document.createElement('tr');
    tr.setAttribute('class','bg-primary');
 
-   for(var i=0;i<a;i++)
+   for (var key of subMap.keys())
    {
-      var subjectname=subjects[i];
       var td=document.createElement('td');
-      td.innerHTML=subjectname.value;
+      td.innerHTML=key;
       tr.appendChild(td);
+      console.log("subname is "+key);
    }
-   for(var i=0;i<b;i++)
+   console.log(subMap);
+   // for(var i=0;i<a;i++)
+   // {
+   //    var subjectname=subjects[i];
+   //    var td=document.createElement('td');
+   //    td.innerHTML=subjectname.value;
+   //    tr.appendChild(td);
+   // }
+
+   for (var key of electMap.keys())
    {
-      var electsubjects=document.getElementsByClassName(1000+i);
-      console.log('dsfkldsj');
-      var electivename=electsubjects[0];
-
-      // ==========================================================================================================REMOVE
-      // electivename = "OR";
-
-      console.log("electivename: "+electivename);
       var td=document.createElement('td');
-      td.innerHTML=electivename.value;
-      console.log("electivename.value"+electivename.value);
+      td.innerHTML=key;
       tr.appendChild(td);
+      console.log("elective name is "+key);
    }
+   // for(var i=0;i<b;i++)
+   // {
+   //    var electsubjects=document.getElementsByClassName(1000+i);
+   //    var electivename=electsubjects[0];
+   //
+   //    // ==========================================================================================================REMOVE
+   //    // electivename = "OR";
+   //
+   //    console.log("electivename: "+electivename);
+   //    var td=document.createElement('td');
+   //    td.innerHTML=electivename.value;
+   //    console.log("electivename.value"+electivename.value);
+   //    tr.appendChild(td);
+   // }
 
-   for(var i=0;i<c;i++)
+   for (var key of practMap.keys())
    {
-      var subjectname=practs[i];
       var td=document.createElement('td');
-      td.innerHTML=subjectname.value;
+      td.innerHTML=key;
       tr.appendChild(td);
+      console.log("practname is "+key);
    }
+
+   // for(var i=0;i<c;i++)
+   // {
+   //    var subjectname=practs[i];
+   //    var td=document.createElement('td');
+   //    td.innerHTML=subjectname.value;
+   //    tr.appendChild(td);
+   // }
    // var td=document.createElement('td');
    // td.innerHTML="sub1";
    // tr.appendChild(td);
@@ -597,35 +661,38 @@ function generateTable()
       var td=document.createElement('td');
       td.innerHTML="8 jan";
       tr.appendChild(td);
+      //for theory Lectures
+      for(var j=0;j<subMap.size;j++)
+      {
+         var td=document.createElement('td');
+         // td.innerHTML="theory";
+         tr.appendChild(td);
+      }
+      //for practical Lectures
+      for(var j=0;j<electMap.size;j++)
+      {
+         var td=document.createElement('td');
+         // td.innerHTML="elect";
+         tr.appendChild(td);
+      }
+      //for project Lectures
+      for(var j=0;j<practMap.size;j++)
+      {
+         var td=document.createElement('td');
+         // td.innerHTML="pract";
+         tr.appendChild(td);
+      }
       var td=document.createElement('td');
-      td.innerHTML="cn";
+      // td.innerHTML="small";
       tr.appendChild(td);
       var td=document.createElement('td');
-      td.innerHTML="spcc";
+      // td.innerHTML="medium";
       tr.appendChild(td);
       var td=document.createElement('td');
-      td.innerHTML="mcc";
+      // td.innerHTML="large";
       tr.appendChild(td);
       var td=document.createElement('td');
-      td.innerHTML="npl";
-      tr.appendChild(td);
-      var td=document.createElement('td');
-      td.innerHTML="wtl";
-      tr.appendChild(td);
-      var td=document.createElement('td');
-      td.innerHTML="iot";
-      tr.appendChild(td);
-      var td=document.createElement('td');
-      td.innerHTML="small";
-      tr.appendChild(td);
-      var td=document.createElement('td');
-      td.innerHTML="medium";
-      tr.appendChild(td);
-      var td=document.createElement('td');
-      td.innerHTML="large";
-      tr.appendChild(td);
-      var td=document.createElement('td');
-      td.innerHTML="remark";
+      // td.innerHTML="remark";
       tr.appendChild(td);
       table.appendChild(tr);
 
@@ -633,6 +700,9 @@ function generateTable()
 // =================================================
 //                Table bottom section
 // =================================================
+   a=subMap.size;
+   b=electMap.size;
+   c=practMap.size;
    var tr = document.createElement("tr");
    tr.setAttribute('class',background[i]);
    table.append(tr);
