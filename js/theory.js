@@ -113,6 +113,7 @@ function generate()
          td38.appendChild(subjects);
          var td4=document.createElement('td');
          var day = document.createElement("SELECT");
+         day.setAttribute('class','daysSub');
          var option = document.createElement("option");
          option.text = "Mon";
          day.add(option);
@@ -224,6 +225,7 @@ function generate()
          td2.appendChild(classsection);
          var td3=document.createElement('td');
          var day = document.createElement("SELECT");
+         day.setAttribute('class','daysElect')
          for(var j=0;j<days.length;j++)
          {
             var option = document.createElement("option");
@@ -371,13 +373,13 @@ function setPracts(s) {
    subject.innerHTML="";
    // console.log(subject);
    if(year.value=='FE')
-      var practlist=['AM','AP','AC','ED','SPA','CS'];
+      var practlist=['AM-1','AP-1','AC-1','ED-1','SPA-1','CS-1'];
    else if(year.value=='SE')
-      var practlist=['AM','AOA','COA','DBMS','TCS','CG'];
+      var practlist=['AM-2','AOA-2','COA-2','DBMS-2','TCS-2','CG-2'];
    else if(year.value=='TE')
-      var practlist=['SPC','SE','DD','MCC'];
+      var practlist=['SPC-3','SE-3','DD-3','MCC-3'];
    else if(year.value=='BE')
-      var practlist=['DWM','HMI','PDS','ELECT'];
+      var practlist=['DWM-4','HMI-4','PDS-4','ELECT-4'];
    // console.log(year);
    // console.log(sublist);
    var subjects=document.getElementsByClassName("practs");
@@ -483,41 +485,95 @@ function generateTable()
    var practs=document.getElementsByClassName('practs');
    var name=document.createElement('p');
 
+   var daySub=document.getElementsByClassName('daysSub');
+   console.log(daySub);
    var subMap=new Map();
+   var counter=1;
+   var subSet = new Set();
    for(var i=0;i<a;i++)
    {
       var subjectname=subjects[i];
-      if(!subMap.get(subjectname.value))
-         subMap.set(subjectname.value,1);
+      subSet.add(subjectname.value);
+      var daySubject=daySub[i];
+      console.log(daySubject.value);
+      if(!subMap.get(subjectname.value+daySubject.value))
+      {
+         counter=1;
+         subMap.set(subjectname.value+daySubject.value,counter);
+      }
       else
-         subMap.set(subjectname.value,subMap.get(subjectname.value)+1);
+      {
+         counter=subMap.get(subjectname.value+daySubject.value);
+         counter+=1;
+         console.log("c is "+counter);
+         subMap.set(subjectname.value+daySubject.value,counter);
+         // subMap.set(subjectname.value,subMap.get(subjectname.value).charAt(0)+subMap.get(subjectname.value).charAt(1)+subMap.get(subjectname.value).charAt(2)+(c));
+         // console.log("abc is "+subMap.get(subjectname.value).charAt(0)+subMap.get(subjectname.value).charAt(1)+subMap.get(subjectname.value).charAt(2)+(c));
+      }
    }
+   console.log("subset size is "+subSet.size);
 
+   console.log("submap is ");
+   console.log(subMap);
+
+   var dayElect=document.getElementsByClassName('daysElect');
+   var electSet=new Set();
    var electMap=new Map();
    for(var i=0;i<b;i++)
    {
       var electsubjects=document.getElementsByClassName(1000+i);
       var electivename=electsubjects[0];
+      var dayElective=dayElect[i];
+      electSet.add(electivename.value);
       console.log(electivename.value);
-      if(!electMap.get(electivename.value))
+      if(!electMap.get(electivename.value+dayElective.value))
       {
-         electMap.set(electivename.value,1);
+         counter=1;
+         electMap.set(electivename.value+dayElective.value,counter);
       }
       else
       {
-         electMap.set(electivename.value,electMap.get(electivename.value)+1);
+         console.log(counter);
+         counter=electMap.get(electivename.value+dayElective.value);
+         counter+=1;
+         electMap.set(electivename.value+dayElective.value,counter);
       }
+      // if(!electMap.get(electivename.value))
+      // {
+      //    electMap.set(electivename.value,1);
+      // }
+      // else
+      // {
+      //    electMap.set(electivename.value,electMap.get(electivename.value)+1);
+      // }
    }
+   console.log("electMap is ");
    console.log(electMap);
+   console.log(electSet);
 
+   var dayPract=document.getElementsByClassName('daysPract');
+   var practSet=new Set();
    var practMap=new Map();
    for(var i=0;i<c;i++)
    {
       var subjectname=practs[i];
-      if(!practMap[subjectname.value])
-         practMap.set(subjectname.value,1);
+      practSet.add(subjectname.value);
+      var dayPractical=dayPract[i];
+      if(!practMap.get(subjectname.value+dayPractical.value))
+      {
+         counter=1;
+         practMap.set(subjectname.value+dayPractical.value,counter);
+      }
       else
-         practMap.set(subjectname.value,subMap.get(subjectname.value)+1);
+      {
+         counter=practMap.get(subjectname.value+dayPractical.value);
+         counter+=1;
+         practMap.set(subjectname.value+dayPractical.value,counter);
+      }
+      // if(!practMap[subjectname.value])
+      //    practMap.set(subjectname.value,1);
+      // else
+      //    practMap.set(subjectname.value,subMap.get(subjectname.value)+1);
    }
 
    // console.log("practs: : "+practs);
@@ -551,10 +607,10 @@ function generateTable()
    var td3=document.createElement('td');
    td3.innerHTML="<b>Theory (X)</b>";
    td3.setAttribute('class','text-center');
-   td3.setAttribute('colspan',subMap.size+electMap.size);
+   td3.setAttribute('colspan',subSet.size+electSet.size);
    var td4=document.createElement('td');
    td4.innerHTML="<b>Practical/Tutorial (Y)</b>"
-   td4.setAttribute('colspan',practMap.size);
+   td4.setAttribute('colspan',practSet.size);
    td4.setAttribute('class','text-center');
    var td5=document.createElement('td');
    td5.innerHTML="<b>Project (Z)</b>";
@@ -575,7 +631,7 @@ function generateTable()
    var tr=document.createElement('tr');
    tr.setAttribute('class','bg-primary');
 
-   for (var key of subMap.keys())
+   for (let key of subSet.keys())
    {
       var td=document.createElement('td');
       td.innerHTML=key;
@@ -591,7 +647,7 @@ function generateTable()
    //    tr.appendChild(td);
    // }
 
-   for (var key of electMap.keys())
+   for (let key of electSet.keys())
    {
       var td=document.createElement('td');
       td.innerHTML=key;
@@ -613,7 +669,7 @@ function generateTable()
    //    tr.appendChild(td);
    // }
 
-   for (var key of practMap.keys())
+   for (let key of practSet.keys())
    {
       var td=document.createElement('td');
       td.innerHTML=key;
@@ -649,7 +705,7 @@ function generateTable()
    table.appendChild(tr);
 
    var background=['bg-success','bg-danger','bg-warning','bg-info','bg-primary','bg-success']
-   var days=['mon','tue','wed','thur','fri','sat'];
+   var days=['Mon','Tue','Wed','Thur','Fri','Sat'];
    for(var i=0;i<6;i++)
    {
       var tr=document.createElement('tr');
@@ -662,26 +718,77 @@ function generateTable()
       td.innerHTML="8 jan";
       tr.appendChild(td);
       //for theory Lectures
-      for(var j=0;j<subMap.size;j++)
+
+      for (let key of subSet.keys())
       {
          var td=document.createElement('td');
-         // td.innerHTML="theory";
+         td.setAttribute('id',key+days[i]);
+
+         for(var keyVal of subMap.keys())
+         {
+            if(keyVal==td.id)
+            {
+               td.innerHTML=subMap.get(keyVal);
+            }
+         }
          tr.appendChild(td);
       }
+
+
+      // for(var j=0;j<subMap.size;j++)
+      // {
+      //    var td=document.createElement('td');
+      //    td.setAttribute('id',subMap)
+      //    // td.innerHTML="theory";
+      //    tr.appendChild(td);
+      // }
+      //for elective Lectures
+
+      for (let key of electSet.keys())
+      {
+         var td=document.createElement('td');
+         td.setAttribute('id',key+days[i]);
+
+         for(var keyVal of electMap.keys())
+         {
+            if(keyVal==td.id)
+            {
+               td.innerHTML=electMap.get(keyVal);
+            }
+         }
+         // td.innerHTML=key+days[i];
+         tr.appendChild(td);
+      }
+      // for(var j=0;j<electMap.size;j++)
+      // {
+      //    var td=document.createElement('td');
+      //    // td.innerHTML="elect";
+      //    tr.appendChild(td);
+      // }
       //for practical Lectures
-      for(var j=0;j<electMap.size;j++)
+
+      for (let key of practSet.keys())
       {
          var td=document.createElement('td');
-         // td.innerHTML="elect";
+         td.setAttribute('id',key+days[i]);
+         for(var keyVal of practMap.keys())
+         {
+            if(keyVal==td.id)
+            {
+               td.innerHTML=practMap.get(keyVal);
+            }
+         }
+         // td.innerHTML=key+days[i];
          tr.appendChild(td);
       }
-      //for project Lectures
-      for(var j=0;j<practMap.size;j++)
-      {
-         var td=document.createElement('td');
-         // td.innerHTML="pract";
-         tr.appendChild(td);
-      }
+      // for(var j=0;j<practMap.size;j++)
+      // {
+      //    var td=document.createElement('td');
+      //    // td.innerHTML="pract";
+      //    tr.appendChild(td);
+      // }
+
+      //for project lectures
       var td=document.createElement('td');
       // td.innerHTML="small";
       tr.appendChild(td);
@@ -700,9 +807,9 @@ function generateTable()
 // =================================================
 //                Table bottom section
 // =================================================
-   a=subMap.size;
-   b=electMap.size;
-   c=practMap.size;
+   a=subSet.size;
+   b=electSet.size;
+   c=practSet.size;
    var tr = document.createElement("tr");
    tr.setAttribute('class',background[i]);
    table.append(tr);
@@ -958,6 +1065,7 @@ function generatePracs() {
      td38.appendChild(subjects);
      var td4=document.createElement('td');
      var day = document.createElement("SELECT");
+     day.setAttribute('class','daysPract');
      var option = document.createElement("option");
      option.text = "Mon";
      day.add(option);
