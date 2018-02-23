@@ -369,17 +369,17 @@ function getAttendance(attn) {
   var curattn = Number(attn.value);
   // console.log("curattntheor: "+curattn);
   var classn = attn.classList[0];
-  console.log("classnTheor: " + classn);
+  // console.log("classnTheor: " + classn);
   var classname = document.getElementsByClassName(classn - 100)[0].value;
-  console.log("clasnname" + classname);
+  // console.log("clasnname" + classname);
   var select = document.getElementsByClassName("section");
-  console.log(select);
+  // console.log(select);
   var section = select[classn - 100];
-  console.log(section);
+  // console.log(section);
   var secval = section.value;
   // console.log(secval);
   var classname = document.getElementsByClassName(classn - 100)[0].value + secval;
-  console.log("classname" + classname);
+  // console.log("classname" + classname);
   // console.log(Number(classn)+100);
   var count = document.getElementById(Number(classn) + 100);
   // console.log("count"+count);
@@ -453,7 +453,9 @@ function generateTable() {
   var daySub = document.getElementsByClassName('daysSub');
   console.log(daySub);
   var subMap = new Map();
+  var subjectList = new Map();
   var counter = 1;
+  var cr = 1;
   var subSet = new Set();
   for (var i = 0; i < a; i++) {
     var subjectname = subjects[i];
@@ -463,11 +465,14 @@ function generateTable() {
     if (!subMap.get(subjectname.value + daySubject.value)) {
       counter = 1;
       subMap.set(subjectname.value + daySubject.value, counter);
+      subjectList.set(subjectname.value, parseFloat($("#20" + (cr - 1)).text()));
+      cr++;
     } else {
       counter = subMap.get(subjectname.value + daySubject.value);
       counter += 1;
       console.log("c is " + counter);
       subMap.set(subjectname.value + daySubject.value, counter);
+      subjectList.set(subjectname.value, parseFloat($("#20" + (cr - 1)).text()));
       // subMap.set(subjectname.value,subMap.get(subjectname.value).charAt(0)+subMap.get(subjectname.value).charAt(1)+subMap.get(subjectname.value).charAt(2)+(c));
       // console.log("abc is "+subMap.get(subjectname.value).charAt(0)+subMap.get(subjectname.value).charAt(1)+subMap.get(subjectname.value).charAt(2)+(c));
     }
@@ -476,10 +481,12 @@ function generateTable() {
 
   console.log("submap is ");
   console.log(subMap);
+  // console.log(subjectList);
 
   var dayElect = document.getElementsByClassName('daysElect');
   var electSet = new Set();
   var electMap = new Map();
+  var electiveList = new Map();
   for (var i = 0; i < b; i++) {
     var electsubjects = document.getElementsByClassName(1000 + i);
     var electivename = electsubjects[0];
@@ -489,11 +496,13 @@ function generateTable() {
     if (!electMap.get(electivename.value + dayElective.value)) {
       counter = 1;
       electMap.set(electivename.value + dayElective.value, counter);
+      electiveList.set(electivename.value, counter);
     } else {
       console.log(counter);
       counter = electMap.get(electivename.value + dayElective.value);
       counter += 1;
       electMap.set(electivename.value + dayElective.value, counter);
+      electiveList.set(electivename.value, counter);
     }
     // if(!electMap.get(electivename.value))
     // {
@@ -511,6 +520,7 @@ function generateTable() {
   var dayPract = document.getElementsByClassName('daysPract');
   var practSet = new Set();
   var practMap = new Map();
+  var practicalList = new Map();
   for (var i = 0; i < c; i++) {
     var subjectname = practs[i];
     practSet.add(subjectname.value);
@@ -518,10 +528,11 @@ function generateTable() {
     if (!practMap.get(subjectname.value + dayPractical.value)) {
       counter = 1;
       practMap.set(subjectname.value + dayPractical.value, counter);
+      practicalList.set(subjectname.value, counter);
     } else {
       counter = practMap.get(subjectname.value + dayPractical.value);
       counter += 1;
-      practMap.set(subjectname.value + dayPractical.value, counter);
+      practicalList.set(subjectname.value, counter);
     }
     // if(!practMap[subjectname.value])
     //    practMap.set(subjectname.value,1);
@@ -765,8 +776,9 @@ function generateTable() {
   td.setAttribute('class', 'text-center');
   td.innerHTML = "Total";
   tr.append(td);
-  for (var i = 0; i < 10; i++) {
+  for (var i = 0; i < (a + b + c + 4); i++) {
     var td = document.createElement("td");
+    td.setAttribute('id', 'ttl' + (i + 1));
     tr.append(td);
   }
   var tr = document.createElement("tr");
@@ -820,8 +832,9 @@ function generateTable() {
   td.setAttribute('class', 'text-center');
   td.innerHTML = "Attendance %";
   tr.append(td);
-  for (var i = 0; i < 10; i++) {
+  for (var i = 0; i < a + b + c + 4; i++) {
     var td = document.createElement("td");
+    td.setAttribute('id', 'attperc' + (i + 1));
     tr.append(td);
   }
   var tr = document.createElement("tr");
@@ -902,6 +915,88 @@ function generateTable() {
   var td = document.createElement("td");
   td.setAttribute('id', 'Rscore');
   tr.append(td);
+
+  console.log("**************************************************************************************************** ");
+  // console.log("final subject list is: ");
+  var days = ['Mon', 'Tue', 'Wed', 'Thur', 'Fri', 'Sat'];
+  // for theory total
+  var ctr = 0;
+  for (let key of subjectList.keys()) {
+    var arraynew = 0;
+    ctr++;
+    for (var j = 0; j < 6; j++) {
+      if ($("#" + key + days[j]).text() != "") {
+        arraynew += parseInt($("#" + key + days[j]).text());
+        // console.log(subjects[i].value+days[j]+": "+arraynew);
+      }
+    }
+    $("#ttl" + ctr).html(arraynew);
+  }
+  console.log(subjectList);
+  console.log("********************************************************");
+
+  // // for electives total
+  for (let key of electiveList.keys()) {
+    var arraynew = 0;
+    ctr++;
+    for (var j = 0; j < 6; j++) {
+      if ($("#" + key + days[j]).text() != "") {
+        arraynew += parseInt($("#" + key + days[j]).text());
+        // console.log(subjects[i].value+days[j]+": "+arraynew);
+      }
+    }
+    $("#ttl" + ctr).html(arraynew);
+  }
+  console.log(electiveList);
+  console.log("********************************************************");
+
+  // for theory final
+  var total1 = 0;
+  var tot1 = ctr;
+  for (var i = 0; i < ctr; i++) {
+    total1 += parseInt($("#ttl" + (i + 1)).text());
+  }
+  $("#total1").html(total1);
+
+  // for pracs total
+  for (let key of practicalList.keys()) {
+    var arraynew = 0;
+    ctr++;
+    for (var j = 0; j < 6; j++) {
+      if ($("#" + key + days[j]).text() != "") {
+        arraynew += parseInt($("#" + key + days[j]).text());
+        // console.log(subjects[i].value+days[j]+": "+arraynew);
+      }
+    }
+    $("#ttl" + ctr).html(arraynew);
+  }
+  console.log(practicalList);
+  console.log("********************************************************");
+
+  // for practical final
+  var total2 = 0;
+  for (var i = tot1; i < ctr; i++) {
+    total2 += parseInt($("#ttl" + (i + 1)).text());
+  }
+  $("#total2").html(total2);
+  console.log("********************************************************");
+
+  // Attendance Percentage
+  var ctr = 0;
+  for (let key of subjectList.keys()) {
+    var arraynew = 0;
+    ctr++;
+    // for (var j = 0; j < 6; j++) {
+    //   if ($("#" + key + days[j]).text() != "") {
+    //     arraynew += parseInt($("#" + key + days[j]).text());
+    //     // console.log(subjects[i].value+days[j]+": "+arraynew);
+    //   }
+    // }
+    arraynew = subjectList.get(key);
+    $("#attperc" + ctr).html(arraynew);
+  }
+  console.log(subjectList);
+  console.log("********************************************************");
 
   // for (var i = 0; i < 3; i++) {
   //   var td = document.createElement("td");
@@ -1083,7 +1178,7 @@ function generatePracs() {
 function setPracts(s) {
   var year = s;
   var classname = year.classList[0];
-  console.log("cname: " + classname);
+  // console.log("cname: " + classname);
   var select = document.getElementsByClassName("practs");
   var subject = select[classname - 1500];
   subject.innerHTML = "";
@@ -1131,7 +1226,7 @@ function getAttendancePracs(attn) {
   var curattn = Number(attn.value);
   // console.log("curattn: "+curattn);
   var classn = attn.classList[0];
-  console.log("classn:= " + Number(classn));
+  // console.log("classn:= " + Number(classn));
   var classname = document.getElementsByClassName(classn - 3500)[0].value;
   var select = document.getElementsByClassName("section2");
   // console.log("select:= "+select);
@@ -1140,7 +1235,7 @@ function getAttendancePracs(attn) {
   var secval = section.value;
   // console.log("secval: "+secval);
   var classname = document.getElementsByClassName(classn - 3500)[0].value + secval;
-  console.log("classname: " + classname);
+  // console.log("classname: " + classname);
   // console.log(Number(classn)+100);
   var count = document.getElementById(Number(classn) + 1000);
   // console.log(count);
